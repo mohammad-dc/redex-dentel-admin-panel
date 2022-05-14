@@ -1,10 +1,12 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-
 class MyDocument extends Document {
   render() {
     return (
       <Html dir="rtl">
-        <Head></Head>
+        <Head>
+          <link rel="shortcut icon" href="../assets/images/logo.png" />
+          <title>Admin Panel</title>
+        </Head>
         <body>
           <Main />
           <NextScript />
