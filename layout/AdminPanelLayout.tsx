@@ -17,10 +17,10 @@ const AdminPanelLayout: NextPage<{
     { name: "الرئيسية", link: "/admin/dashboard", icon: AiFillHome },
     { name: "المرضى", link: "/admin/patients", icon: FaUserInjured },
     { name: "الاطباء", link: "/admin/doctors", icon: FaUserMd },
-    { name: "المدن", link: "#", icon: FaCity },
-    { name: "الحجوزات", link: "#", icon: FaBookmark },
-    { name: "الدخل", link: "#", icon: RiMoneyCnyCircleFill },
-    { name: "الابلاغات", link: "#", icon: MdReport },
+    { name: "المدن", link: "/admin/cities", icon: FaCity },
+    { name: "الحجوزات", link: "/admin/reservations", icon: FaBookmark },
+    { name: "الدخل", link: "/admin/incomes", icon: RiMoneyCnyCircleFill },
+    { name: "الابلاغات", link: "/admin/reports", icon: MdReport },
   ];
   return (
     <Flex
