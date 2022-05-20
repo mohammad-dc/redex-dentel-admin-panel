@@ -2,32 +2,15 @@ import React from "react";
 import {
   Flex,
   Text,
-  Divider,
   Box,
   VStack,
-  Center,
-  Spacer,
   SimpleGrid,
   GridItem,
 } from "@chakra-ui/react";
-import {
-  FaUserMd,
-  FaUserInjured,
-  FaCity,
-  FaBookmark,
-  FaMoneyBillWave,
-} from "react-icons/fa";
-import { RiMoneyCnyCircleFill } from "react-icons/ri";
-import { MdReport } from "react-icons/md";
-import { AiFillHome } from "react-icons/ai";
 
-import Logo from "../../assets/images/logo.png";
-import Image from "next/image";
-import SidebarListItem from "../../components/SidebarListItem";
-import StatusDashboardCard from "../../components/cards/StatusDashboardCard";
 import CurvedColumnsChart from "../../components/charts/CurvedColumnsChart";
 import DashboardNav from "../../components/DashboardNav";
-import DoughnutDashboardChart from "../../components/charts/doughnutDashboardChart";
+import DoughnutDashboardChart from "../../components/charts/DoughnutDashboardChart";
 import AdminPanelLayout from "../../layout/AdminPanelLayout";
 
 const Dashboard = () => {

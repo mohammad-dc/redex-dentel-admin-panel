@@ -7,87 +7,113 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue,
   FormErrorMessage,
+  Input,
+  VStack,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
-import { InputControl } from "formik-chakra-ui";
-import { Formik, Form, useFormik } from "formik";
+import { Formik, Field } from "formik";
 import { ILogin } from "../../../interfaces/auth.interface";
 import { loginSchema } from "../../../validations/auth.validation";
+//store
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionAuthCreators } from "../../../store";
+import { RootState } from "../../../store/reducers";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const initialValues: ILogin = {
   email: "",
   password: "",
 };
 
-export default function Login() {
-  const formik = useFormik({
-    initialValues,
-    validationSchema: loginSchema,
-    onSubmit: (values, actions) => {
-      actions.setSubmitting(true);
-      console.log(values);
-      actions.setSubmitting(false);
-    },
-  });
+const Login = () => {
+  const route = useRouter();
+  const dispatch = useDispatch();
+  const { loginAdminCreator } = bindActionCreators(
+    actionAuthCreators,
+    dispatch
+  );
+  const { loading, success, error } = useSelector(
+    (state: RootState) => state.login
+  );
+
+  useEffect(() => {
+    success && route.push("/admin/dashboard");
+  }, [success]);
+
   return (
-    <Flex
-      minH={"100vh"}
-      align={"center"}
-      justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
-    >
+    <Flex bg="gray.100" align="center" justify="center" h="100vh">
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>تسجيل الدخل للمسؤول</Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
-            مرحبا بك في لوحة القيادة ✌️
+            مرحبا بك في لوحة التحكم ✌️
           </Text>
         </Stack>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={loginSchema}
-          onSubmit={(values, actions) => {
-            actions.setSubmitting(true);
-            console.log(values);
-            actions.setSubmitting(false);
-          }}
-        >
-          <Form>
-            <Box
-              rounded={"lg"}
-              bg={useColorModeValue("white", "gray.700")}
-              boxShadow={"lg"}
-              p={8}
-            >
-              <Stack spacing={4}>
-                <FormControl id="email">
-                  <FormLabel>البريد الاكتروني</FormLabel>
-                  <InputControl name="email" />
-                  <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
-                </FormControl>
-                <FormControl id="password">
-                  <FormLabel>كلمة المرور</FormLabel>
-                  <InputControl name="password" />
-                  <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
-                </FormControl>
-                <Stack spacing={10}>
+
+        <Box bg="white" p={6} rounded="md">
+          <Formik
+            initialValues={initialValues}
+            validationSchema={loginSchema}
+            onSubmit={(values, actions) => {
+              actions.setSubmitting(true);
+              loginAdminCreator(values);
+              actions.setSubmitting(false);
+            }}
+          >
+            {({ handleSubmit, errors, touched }) => (
+              <form onSubmit={handleSubmit}>
+                <VStack spacing={4} align="flex-start">
+                  {!success && error && (
+                    <Alert status="error">
+                      <AlertIcon />
+                      {error.message}
+                    </Alert>
+                  )}
+                  <FormControl isInvalid={!!errors.email && touched.email}>
+                    <FormLabel htmlFor="email">البريد الاكتروني</FormLabel>
+                    <Field
+                      as={Input}
+                      id="email"
+                      name="email"
+                      type="email"
+                      variant="filled"
+                    />
+                    <FormErrorMessage>{errors.email}</FormErrorMessage>
+                  </FormControl>
+                  <FormControl
+                    isInvalid={!!errors.password && touched.password}
+                  >
+                    <FormLabel htmlFor="password">كلمة المرور</FormLabel>
+                    <Field
+                      as={Input}
+                      id="password"
+                      name="password"
+                      type="password"
+                      variant="filled"
+                    />
+                    <FormErrorMessage>{errors.password}</FormErrorMessage>
+                  </FormControl>
+
                   <Button
+                    isLoading={loading}
                     type="submit"
-                    bg={"blue.400"}
-                    color={"white"}
-                    _hover={{
-                      bg: "blue.500",
-                    }}
+                    colorScheme="blue"
+                    width="full"
                   >
                     تسجيل الدخول
                   </Button>
-                </Stack>
-              </Stack>
-            </Box>
-          </Form>
-        </Formik>
+                </VStack>
+              </form>
+            )}
+          </Formik>
+        </Box>
       </Stack>
     </Flex>
   );
-}
+};
+
+export default Login;

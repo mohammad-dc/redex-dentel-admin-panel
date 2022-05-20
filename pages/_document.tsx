@@ -5,7 +5,6 @@ class MyDocument extends Document {
       <Html dir="rtl">
         <Head>
           <link rel="shortcut icon" href="../assets/images/logo.png" />
-          <title>Admin Panel</title>
         </Head>
         <body>
           <Main />
