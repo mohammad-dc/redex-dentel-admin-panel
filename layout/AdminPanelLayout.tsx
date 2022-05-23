@@ -1,4 +1,4 @@
-import React, { Children, ReactNode } from "react";
+import React, { Children, ReactNode, useEffect } from "react";
 import { Flex, Text, Divider, Box, VStack, Center } from "@chakra-ui/react";
 import { FaUserMd, FaUserInjured, FaCity, FaBookmark } from "react-icons/fa";
 import { RiMoneyCnyCircleFill } from "react-icons/ri";
@@ -8,11 +8,44 @@ import { NextPage } from "next";
 import Image from "next/image";
 import SidebarListItem from "../components/SidebarListItem";
 import Logo from "../assets/images/logo.png";
+//store
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import {
+  actionReservationsCreator,
+  actionCitiesCreators,
+  actionDoctorsCreators,
+  actionPatientsCreators,
+  actionReportsCreators,
+} from "../store";
 
 const AdminPanelLayout: NextPage<{
   children: ReactNode;
   pageName: string;
 }> = ({ children, pageName }) => {
+  const dispatch = useDispatch();
+
+  const { getReservationsCreator } = bindActionCreators(
+    actionReservationsCreator,
+    dispatch
+  );
+  const { getCitiesCreator } = bindActionCreators(
+    actionCitiesCreators,
+    dispatch
+  );
+  const { getDoctorsCreator } = bindActionCreators(
+    actionDoctorsCreators,
+    dispatch
+  );
+  const { getPatientsCreator } = bindActionCreators(
+    actionPatientsCreators,
+    dispatch
+  );
+  const { getReportsCreators } = bindActionCreators(
+    actionReportsCreators,
+    dispatch
+  );
+
   const list = [
     { name: "الرئيسية", link: "/admin/dashboard", icon: AiFillHome },
     { name: "المرضى", link: "/admin/patients", icon: FaUserInjured },
@@ -22,6 +55,15 @@ const AdminPanelLayout: NextPage<{
     { name: "الدخل", link: "/admin/incomes", icon: RiMoneyCnyCircleFill },
     { name: "الابلاغات", link: "/admin/reports", icon: MdReport },
   ];
+
+  useEffect(() => {
+    getReservationsCreator({});
+    getCitiesCreator();
+    getDoctorsCreator({});
+    getPatientsCreator({});
+    getReportsCreators({ type: "recent" });
+    getReportsCreators({ type: "all" });
+  }, []);
   return (
     <Flex
       h={[null, null, "100vh"]}

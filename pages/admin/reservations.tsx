@@ -21,6 +21,9 @@ import RedexSelect from "../../components/RedexSelect";
 import PatientsTable from "../../components/tables/RedexTable";
 import { InfoIcon } from "@chakra-ui/icons";
 import { getDays, getMonths, getYears } from "../../utils/dates";
+//store
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/reducers";
 
 const Reservations = () => {
   const columns = [
@@ -49,6 +52,10 @@ const Reservations = () => {
       value: "تم الالغاء",
     },
   ];
+
+  const { loading, results } = useSelector(
+    (state: RootState) => state.reservations
+  );
   return (
     <AdminPanelLayout pageName="الحجوزات">
       <Flex w={"100%"} flexDir="column" p={5} overflowY={"auto"}>
@@ -68,7 +75,7 @@ const Reservations = () => {
                   placeholder="بحث عن الاسم او رقم الهاتف"
                 />
               </InputGroup>
-              <Button>بحث</Button>
+              <Button isLoading={loading}>بحث</Button>
             </HStack>
             <HStack>
               <RedexSelect placeholder="السنة" options={years} />
@@ -79,29 +86,25 @@ const Reservations = () => {
           </Flex>
           <Spacer h={10} />
           <PatientsTable columns={columns}>
-            {Array.from({ length: 10 }).map((el, index) => (
+            {results.map((el, index) => (
               <Tr key={Math.random()}>
                 <Td>{++index}</Td>
                 <Td>
                   <HStack spacing={2}>
-                    <Avatar
-                      name="Ryan Florence"
-                      src="https://bit.ly/ryan-florence"
-                    />
-                    <Text>محمد قبالة</Text>
+                    <Avatar name={el.doctor.name} src={el.doctor.image_url} />
+                    <Text>{el.doctor.name}</Text>
                   </HStack>
                 </Td>
                 <Td>
                   <HStack spacing={2}>
-                    <Avatar
-                      name="Kent Dodds"
-                      src="https://bit.ly/kent-c-dodds"
-                    />
-                    <Text>شمس حمد</Text>
+                    <Avatar name={el.patient.name} src={el.patient.image_url} />
+                    <Text>{el.patient.name}</Text>
                   </HStack>
                 </Td>
-                <Td>03/06/2022</Td>
-                <Td>10:15 AM</Td>
+                <Td>
+                  {el.day}/{el.month}/{el.year}
+                </Td>
+                <Td>{new Date(el.date).getTime()}</Td>
                 <Td>
                   <Badge colorScheme="green">تمت الموافقة</Badge>
                 </Td>

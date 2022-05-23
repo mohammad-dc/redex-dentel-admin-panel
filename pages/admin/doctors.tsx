@@ -17,6 +17,9 @@ import React from "react";
 import PatientsTable from "../../components/tables/RedexTable";
 import AdminPanelLayout from "../../layout/AdminPanelLayout";
 import { Search2Icon, DeleteIcon, WarningTwoIcon } from "@chakra-ui/icons";
+//store
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/reducers";
 const Doctors = () => {
   const columns = [
     "#",
@@ -33,6 +36,8 @@ const Doctors = () => {
     "الوقت المتبقي للاشتراك",
     "خيارات",
   ];
+
+  const { loading, results } = useSelector((state: RootState) => state.doctors);
   return (
     <AdminPanelLayout pageName={"الاطباء"}>
       <Flex w={"100%"} flexDir="column" p={5} overflowY={"auto"}>
@@ -51,31 +56,28 @@ const Doctors = () => {
                 placeholder="بحث عن الاسم"
               />
             </InputGroup>
-            <Button>بحث</Button>
+            <Button isLoading={loading}>بحث</Button>
           </HStack>
           <Spacer h={10} />
           <PatientsTable columns={columns}>
-            {Array.from({ length: 10 }).map((el, index) => (
+            {results.map((el, index) => (
               <Tr key={Math.random()}>
                 <Td>{++index}</Td>
                 <Td>
                   <HStack spacing={2}>
-                    <Avatar
-                      name="Ryan Florence"
-                      src="https://bit.ly/ryan-florence"
-                    />
-                    <Text>محمد قبالة</Text>
+                    <Avatar name={el.name} src={el.image_url} />
+                    <Text>{el.name}</Text>
                   </HStack>
                 </Td>
-                <Td>mohammad@gmail.com</Td>
-                <Td>الدار البيضاء</Td>
-                <Td>0592839122</Td>
-                <Td>جنين</Td>
-                <Td>اليامون</Td>
-                <Td>12</Td>
-                <Td>1</Td>
+                <Td>{el.email}</Td>
+                <Td>{el.clinic_name}</Td>
+                <Td>{el.phone}</Td>
+                <Td>{el.city}</Td>
+                <Td>{el.address}</Td>
+                <Td>{el.total_reservations_count}</Td>
+                <Td>{el.reservations_month_count}</Td>
                 <Td>5</Td>
-                <Td>6</Td>
+                <Td>{el.reports}</Td>
                 <Td>23 يوما</Td>
                 <Td>
                   <HStack>
