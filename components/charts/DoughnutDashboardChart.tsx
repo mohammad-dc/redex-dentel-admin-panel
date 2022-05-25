@@ -1,14 +1,26 @@
-import React from "react";
+import React, { FC } from "react";
 
 import { Polar } from "react-chartjs-2";
+import { IUserCity } from "../../interfaces/store/app.interface";
 
-const DoughnutDashboardChart = () => {
+const DoughnutDashboardChart: FC<{ results: IUserCity[]; label: string }> = ({
+  results,
+  label,
+}) => {
+  const labels: string[] = [];
+  const counts: number[] = [];
+
+  results.forEach((el) => {
+    labels.push(el._id);
+    counts.push(el.count);
+  });
+
   const data = {
-    labels: ["Red", "Green", "Yellow", "Grey", "Blue"],
+    labels,
     datasets: [
       {
-        label: "My First Dataset",
-        data: [11, 16, 7, 3, 14],
+        label: label,
+        data: counts,
         backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(75, 192, 192)",

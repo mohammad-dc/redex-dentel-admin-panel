@@ -1,5 +1,5 @@
 import { Box, GridItem, SimpleGrid } from "@chakra-ui/react";
-import React from "react";
+import React, { FC } from "react";
 import StatusDashboardCard from "./cards/StatusDashboardCard";
 import {
   FaUserMd,
@@ -8,7 +8,9 @@ import {
   FaMoneyBillWave,
 } from "react-icons/fa";
 
-const DashboardNav = () => {
+const DashboardNav: FC<{
+  counts: { doctors: number; patients: number; reservations: number };
+}> = ({ counts }) => {
   return (
     <Box>
       <SimpleGrid minChildWidth="200px" spacing={5}>
@@ -16,7 +18,7 @@ const DashboardNav = () => {
           <StatusDashboardCard
             icon={FaUserMd}
             title="الاطباء"
-            value={230}
+            value={counts.doctors}
             bg={"linear-gradient(#e66465, #9198e5)"}
           />
         </GridItem>
@@ -24,7 +26,7 @@ const DashboardNav = () => {
           <StatusDashboardCard
             icon={FaUserInjured}
             title="المرضى"
-            value={150}
+            value={counts.patients}
             bg={"linear-gradient(#4da0b0, #d39d38)"}
           />
         </GridItem>
@@ -32,7 +34,7 @@ const DashboardNav = () => {
           <StatusDashboardCard
             icon={FaBookmark}
             title="الحجوزات"
-            value={150}
+            value={counts.reservations}
             bg={"linear-gradient(#9B4CFC, #1DE1D0)"}
           />
         </GridItem>

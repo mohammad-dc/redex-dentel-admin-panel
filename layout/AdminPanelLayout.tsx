@@ -17,6 +17,7 @@ import {
   actionDoctorsCreators,
   actionPatientsCreators,
   actionReportsCreators,
+  actionAppCreators,
 } from "../store";
 
 const AdminPanelLayout: NextPage<{
@@ -46,6 +47,13 @@ const AdminPanelLayout: NextPage<{
     dispatch
   );
 
+  const {
+    getUsersCitiesCreator,
+    getReservationsCountsCreator,
+    getUsersCountsCreator,
+    getUsersJoiningCreator,
+  } = bindActionCreators(actionAppCreators, dispatch);
+
   const list = [
     { name: "الرئيسية", link: "/admin/dashboard", icon: AiFillHome },
     { name: "المرضى", link: "/admin/patients", icon: FaUserInjured },
@@ -64,6 +72,11 @@ const AdminPanelLayout: NextPage<{
     getReportsCreators({ type: "recent" });
     getReportsCreators({ type: "all" });
     getReportsReasonsCreator({});
+    getUsersCitiesCreator("doctor");
+    getUsersCitiesCreator("patient");
+    getReservationsCountsCreator();
+    getUsersCountsCreator();
+    getUsersJoiningCreator();
   }, []);
   return (
     <Flex

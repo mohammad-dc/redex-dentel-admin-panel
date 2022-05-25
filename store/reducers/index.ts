@@ -6,6 +6,7 @@ import * as citiesReducers from "./cities";
 import * as reportsReducers from "./reports";
 import * as reservationsReducers from "./reservations";
 import * as searchReducers from "./search";
+import * as appReducers from "./app";
 
 const reducers = combineReducers({
   auth: authReducers.authReducer,
@@ -18,6 +19,11 @@ const reducers = combineReducers({
   reports_reasons: reportsReducers.reportsReasonsReducer,
   reservations: reservationsReducers.reservationsReducer,
   search: searchReducers.searchReducer,
+  app_users_counts: appReducers.usersCountsReducer,
+  app_users_joining: appReducers.usersJoiningReducer,
+  app_patients_cities: appReducers.patientsCitiesReducer,
+  app_doctors_cities: appReducers.doctorsCitiesReducer,
+  app_reservations_counts: appReducers.reservationsCountsReducer,
 });
 
 export default reducers;

@@ -1,8 +1,13 @@
-import React, { useLayoutEffect } from "react";
+import React, { FC, useLayoutEffect } from "react";
 
 import { Line } from "react-chartjs-2";
+import { IUsersJoining } from "../../interfaces/store/app.interface";
 
-const CurvedColumnsChart = () => {
+const CurvedColumnsChart: FC<{ results: IUsersJoining[] }> = ({ results }) => {
+  let joining_counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  results.forEach((el) => (joining_counts[el._id - 1] = el.count));
+
   const data: any = {
     labels: [
       "January",
@@ -38,7 +43,7 @@ const CurvedColumnsChart = () => {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55],
+        data: joining_counts,
       },
     ],
   };
