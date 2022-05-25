@@ -8,36 +8,35 @@ import {
   Text,
   Tr,
 } from "@chakra-ui/react";
+import { NextPage } from "next";
 import React from "react";
+import { IReport } from "../../interfaces/store/report.interface";
 import { reports_table_columns } from "../../utils/data";
 import RedexTable from "../tables/RedexTable";
 
-const ReportsTable = () => {
+const ReportsTable: NextPage<{ data: IReport[] }> = ({ data }) => {
   return (
     <RedexTable columns={reports_table_columns}>
-      {Array.from({ length: 10 }).map((el, index) => (
+      {data.map((el, index) => (
         <Tr key={Math.random()}>
           <Td>{++index}</Td>
           <Td>
             <HStack spacing={2}>
-              <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence" />
-              <Text>محمد قبالة</Text>
+              <Avatar name={el.doctor.name} src={el.doctor.image_url} />
+              <Text>{el.doctor.name}</Text>
             </HStack>
           </Td>
           <Td>
             <HStack spacing={2}>
-              <Avatar name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
-              <Text>شمس حمد</Text>
+              <Avatar name={el.patient.name} src={el.patient.image_url} />
+              <Text>{el.patient.name}</Text>
             </HStack>
           </Td>
-          <Td>03/06/2022</Td>
-          <Td>عدم الاتزام بالمواعيد</Td>
-          <Td cursor={"pointer"}>
-            {"وتكمن المشكلة في أن عوامل عامة كثيرة يصعب التكهن بها قد تؤدي إلى عدم الوفاء بالموعد المحدد، من بينها عامل التشتت بسبب مهام أخرى أو صعوبات التنقل أو صعوبة الحصول على الواردات المطلوبة، أو الإصابة بمرض، وجميعها عوامل تسهم في حدوث التأخير".substring(
-              0,
-              10
-            ) + "..."}
+          <Td>
+            {el.day}/{el.month}/{el.year}
           </Td>
+          <Td>{el.reason}</Td>
+          <Td cursor={"pointer"}>{el.content.substring(0, 10) + "..."}</Td>
           <Td>
             <HStack>
               <IconButton

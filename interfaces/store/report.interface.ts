@@ -3,12 +3,20 @@ import { IPatientRow } from "./patients.interface";
 
 export interface IReport {
   _id: string;
-  reason_ar: string;
-  reason_en: string;
+  reason: string;
   content: string;
   patient: IPatientRow;
   doctor: IDoctorRow;
-  createdAt: Date;
+  day: number;
+  month: number;
+  year: number;
+}
+
+export interface IReportsReasons {
+  _id: string;
+  reason_ar: string;
+  reason_en: string;
+  reports_count: number;
 }
 
 export interface IGetReportsRequestParams {
@@ -18,8 +26,18 @@ export interface IGetReportsRequestParams {
   type: string;
 }
 
+export interface IGetReportsReasonsRequestParams {
+  skip?: number;
+}
+
 export interface IReportsInitialState {
   loading: boolean;
   results: IReport[];
+  error: Error | null;
+}
+
+export interface IReportsReasonsInitialState {
+  loading: boolean;
+  results: IReportsReasons[];
   error: Error | null;
 }

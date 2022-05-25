@@ -16,7 +16,8 @@ export const reports_table_columns = [
 
 export const reports_reasons_table_columns = [
   "#",
-  "السبب",
+  "السبب (العربية)",
+  "السبب (الانجليزية)",
   "الاطباء المبلغ عنهم",
   "الخيارات",
 ];

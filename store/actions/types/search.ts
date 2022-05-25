@@ -1,0 +1,8 @@
+export enum SearchTypes {
+  ADD_SEARCH = "ADD_SEARCH",
+  ADD_DAY = "ADD_DAY",
+  ADD_MONTH = "ADD_MONTH",
+  ADD_YEAR = "ADD_YEAR",
+  ADD_STATUS = "ADD_STATUS",
+  CLEAR_ALL = "CLEAR_ALL",
+}

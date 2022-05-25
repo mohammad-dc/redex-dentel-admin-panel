@@ -4,4 +4,5 @@ export * as actionPatientsCreators from "./actions/creators/patients";
 export * as actionDoctorsCreators from "./actions/creators/doctors";
 export * as actionCitiesCreators from "./actions/creators/cities";
 export * as actionReportsCreators from "./actions/creators/report";
-export * as actionReservationsCreator from "./actions/creators/reservation";
+export * as actionReservationsCreators from "./actions/creators/reservation";
+export * as actionSearchCreators from "./actions/creators/search";

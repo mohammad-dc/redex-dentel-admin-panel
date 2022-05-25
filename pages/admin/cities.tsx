@@ -17,6 +17,7 @@ import { EditIcon } from "@chakra-ui/icons";
 //store
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/reducers";
+import NoResults from "../../components/noResults";
 
 const cities = () => {
   const columns = [
@@ -39,25 +40,29 @@ const cities = () => {
           <Box p={5} bg={"white"} borderRadius={5} mt={5}>
             <Button>اضافة مدينة</Button>
             <Spacer h={10} />
-            <PatientsTable columns={columns}>
-              {results.map((el, index) => (
-                <Tr key={Math.random()}>
-                  <Td>{++index}</Td>
-                  <Td>{el.city_ar}</Td>
-                  <Td>{el.city_en}</Td>
-                  <Td>
-                    <Switch size="md" isChecked={el.active} />
-                  </Td>
-                  <Td>
-                    <IconButton
-                      colorScheme="orange"
-                      aria-label="edit"
-                      icon={<EditIcon />}
-                    />
-                  </Td>
-                </Tr>
-              ))}
-            </PatientsTable>
+            {results.length === 0 ? (
+              <NoResults />
+            ) : (
+              <PatientsTable columns={columns}>
+                {results.map((el, index) => (
+                  <Tr key={Math.random()}>
+                    <Td>{++index}</Td>
+                    <Td>{el.city_ar}</Td>
+                    <Td>{el.city_en}</Td>
+                    <Td>
+                      <Switch size="md" isChecked={el.active} />
+                    </Td>
+                    <Td>
+                      <IconButton
+                        colorScheme="orange"
+                        aria-label="edit"
+                        icon={<EditIcon />}
+                      />
+                    </Td>
+                  </Tr>
+                ))}
+              </PatientsTable>
+            )}
           </Box>
         )}
       </Flex>

@@ -12,7 +12,7 @@ import Logo from "../assets/images/logo.png";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
-  actionReservationsCreator,
+  actionReservationsCreators,
   actionCitiesCreators,
   actionDoctorsCreators,
   actionPatientsCreators,
@@ -26,7 +26,7 @@ const AdminPanelLayout: NextPage<{
   const dispatch = useDispatch();
 
   const { getReservationsCreator } = bindActionCreators(
-    actionReservationsCreator,
+    actionReservationsCreators,
     dispatch
   );
   const { getCitiesCreator } = bindActionCreators(
@@ -41,7 +41,7 @@ const AdminPanelLayout: NextPage<{
     actionPatientsCreators,
     dispatch
   );
-  const { getReportsCreators } = bindActionCreators(
+  const { getReportsCreators, getReportsReasonsCreator } = bindActionCreators(
     actionReportsCreators,
     dispatch
   );
@@ -63,6 +63,7 @@ const AdminPanelLayout: NextPage<{
     getPatientsCreator({});
     getReportsCreators({ type: "recent" });
     getReportsCreators({ type: "all" });
+    getReportsReasonsCreator({});
   }, []);
   return (
     <Flex

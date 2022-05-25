@@ -1,9 +1,10 @@
+import { ReservationStatusTypes } from "../../types";
 import { IDoctorRow } from "./doctor.interface";
 import { IPatientRow } from "./patients.interface";
 
 export interface IReservation {
   _id: string;
-  status: string;
+  status: ReservationStatusTypes;
   doctor: IDoctorRow;
   patient: IPatientRow;
   date: Date;
