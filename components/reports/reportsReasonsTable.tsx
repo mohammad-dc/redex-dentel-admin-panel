@@ -1,12 +1,5 @@
-import { DeleteIcon } from "@chakra-ui/icons";
-import {
-  Avatar,
-  AvatarGroup,
-  HStack,
-  IconButton,
-  Td,
-  Tr,
-} from "@chakra-ui/react";
+import { HStack, Td, Tr } from "@chakra-ui/react";
+import DeleteModal from "../modals/deleteModal";
 import React from "react";
 import { reports_reasons_table_columns } from "../../utils/data";
 import RedexTable from "../tables/RedexTable";
@@ -26,11 +19,7 @@ const ReportsReasonsTable: NextPage<{ data: IReportsReasons[] }> = ({
           <Td>{el.reports_count}</Td>
           <Td>
             <HStack>
-              <IconButton
-                colorScheme="red"
-                aria-label="delete"
-                icon={<DeleteIcon />}
-              />
+              <DeleteModal />
             </HStack>
           </Td>
         </Tr>

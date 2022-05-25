@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/reducers";
 import TableSearchInput from "../../components/tables/tableSearchInput";
 import NoResults from "../../components/noResults";
+import DeleteModal from "../../components/modals/deleteModal";
 
 const Patients = () => {
   const columns = [
@@ -65,11 +66,7 @@ const Patients = () => {
                   <Td>{el.total_reservations_count}</Td>
                   <Td>{el.reservations_month_count}</Td>
                   <Td>
-                    <IconButton
-                      colorScheme="red"
-                      aria-label="delete"
-                      icon={<DeleteIcon />}
-                    />
+                    <DeleteModal />
                   </Td>
                 </Tr>
               ))}

@@ -23,6 +23,7 @@ import { RootState } from "../../store/reducers";
 import TableSearchInput from "../../components/tables/tableSearchInput";
 import { HandleSearchPageName } from "../../enum";
 import NoResults from "../../components/noResults";
+import DeleteModal from "../../components/modals/deleteModal";
 const Doctors = () => {
   const columns = [
     "#",
@@ -74,11 +75,7 @@ const Doctors = () => {
                   <Td>23 يوما</Td>
                   <Td>
                     <HStack>
-                      <IconButton
-                        colorScheme="red"
-                        aria-label="delete"
-                        icon={<DeleteIcon />}
-                      />
+                      <DeleteModal />
                       <IconButton
                         colorScheme="orange"
                         aria-label="warning"
