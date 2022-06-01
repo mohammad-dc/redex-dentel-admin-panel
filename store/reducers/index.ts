@@ -14,6 +14,7 @@ const reducers = combineReducers({
   patients: patientsReducers.patientsReducer,
   doctors: doctorsReducers.doctorsReducer,
   cities: citiesReducers.citiesReducer,
+  operations_city: citiesReducers.CitiesOperationsReducer,
   reports: reportsReducers.reportsReducer,
   recent_reports: reportsReducers.recentReportsReducer,
   reports_reasons: reportsReducers.reportsReasonsReducer,

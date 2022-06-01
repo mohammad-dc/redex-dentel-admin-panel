@@ -1,23 +1,24 @@
 import {
   Box,
-  Button,
   Flex,
   Spacer,
   Td,
   Tr,
   Switch,
-  IconButton,
   Center,
   Spinner,
 } from "@chakra-ui/react";
 import React from "react";
 import AdminPanelLayout from "../../layout/AdminPanelLayout";
 import PatientsTable from "../../components/tables/RedexTable";
-import { EditIcon } from "@chakra-ui/icons";
-//store
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/reducers";
 import NoResults from "../../components/noResults";
+import AddCityModal from "../../components/modals/addCityModal";
+import UpdateCityModal from "../../components/modals/updateCityModal";
+//store
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCitiesCreators } from "../../store";
+import { RootState } from "../../store/reducers";
 
 const cities = () => {
   const columns = [
@@ -28,7 +29,16 @@ const cities = () => {
     "خيارات",
   ];
 
+  const dispatch = useDispatch();
+  const { activateCityCreator } = bindActionCreators(
+    actionCitiesCreators,
+    dispatch
+  );
   const { loading, results } = useSelector((state: RootState) => state.cities);
+  const operations_city = useSelector(
+    (state: RootState) => state.operations_city
+  );
+
   return (
     <AdminPanelLayout pageName="المدن">
       <Flex w={"100%"} flexDir="column" p={5} overflowY={"auto"}>
@@ -38,7 +48,7 @@ const cities = () => {
           </Center>
         ) : (
           <Box p={5} bg={"white"} borderRadius={5} mt={5}>
-            <Button>اضافة مدينة</Button>
+            <AddCityModal />
             <Spacer h={10} />
             {results.length === 0 ? (
               <NoResults />
@@ -50,14 +60,20 @@ const cities = () => {
                     <Td>{el.city_ar}</Td>
                     <Td>{el.city_en}</Td>
                     <Td>
-                      <Switch size="md" isChecked={el.active} />
+                      <Switch
+                        size="md"
+                        isDisabled={operations_city.loading}
+                        defaultChecked={el.active}
+                        onChange={() =>
+                          activateCityCreator(
+                            el._id,
+                            el.active ? "DEACTIVATE" : "ACTIVATE"
+                          )
+                        }
+                      />
                     </Td>
                     <Td>
-                      <IconButton
-                        colorScheme="orange"
-                        aria-label="edit"
-                        icon={<EditIcon />}
-                      />
+                      <UpdateCityModal city={el} />
                     </Td>
                   </Tr>
                 ))}

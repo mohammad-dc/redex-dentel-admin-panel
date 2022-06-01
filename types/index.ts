@@ -11,3 +11,10 @@ export type HandleSearchPageNameTypes =
   | HandleSearchPageName.PATIENTS
   | HandleSearchPageName.RESERVATIONS
   | HandleSearchPageName.REPORTS;
+
+export type citiesOperationTypes =
+  | "ADD"
+  | "UPDATE"
+  | "ACTIVATE"
+  | "DEACTIVATE"
+  | "NONE";
