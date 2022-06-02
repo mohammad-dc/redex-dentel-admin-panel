@@ -2,10 +2,12 @@ import {
   IReport,
   IReportsReasons,
 } from "../../../interfaces/store/report.interface";
+import { ReportOperationTypes } from "../../../types";
 import {
   GetRecentReportsTypes,
   GetReportsReasonsTypes,
   GetReportsTypes,
+  ReportsReasonsOperationsTypes,
 } from "../types/reports";
 
 //reports
@@ -62,6 +64,25 @@ interface IGetReportsReasonsErrorAction {
   error: Error | null;
 }
 
+//operation reasons reports
+interface IOperationReportsReasonsLoadingAction {
+  type: ReportsReasonsOperationsTypes.OPERATION_REPORTS_REASONS_LOADING;
+  loading: boolean;
+  action: ReportOperationTypes;
+}
+
+interface IOperationReportsReasonsSuccessAction {
+  type: ReportsReasonsOperationsTypes.OPERATION_REPORTS_REASONS_SUCCESS;
+  loading: boolean;
+  success: boolean;
+}
+
+interface IOperationReportsReasonsErrorAction {
+  type: ReportsReasonsOperationsTypes.OPERATION_REPORTS_REASONS_ERROR;
+  loading: boolean;
+  error: Error | null;
+}
+
 export type ReportAction =
   | IGetReportsLoadingAction
   | IGetReportsSuccessAction
@@ -76,3 +97,8 @@ export type ReportsReasonsAction =
   | IGetReportsReasonsLoadingAction
   | IGetReportsReasonsSuccessAction
   | IGetReportsReasonsErrorAction;
+
+export type ReportsReasonsOperationsActions =
+  | IOperationReportsReasonsLoadingAction
+  | IOperationReportsReasonsSuccessAction
+  | IOperationReportsReasonsErrorAction;

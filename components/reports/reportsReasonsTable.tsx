@@ -5,6 +5,7 @@ import { reports_reasons_table_columns } from "../../utils/data";
 import RedexTable from "../tables/RedexTable";
 import { NextPage } from "next";
 import { IReportsReasons } from "../../interfaces/store/report.interface";
+import UpdateReportReasonModel from "../modals/reports/updateReportReasonModal";
 
 const ReportsReasonsTable: NextPage<{ data: IReportsReasons[] }> = ({
   data,
@@ -19,6 +20,7 @@ const ReportsReasonsTable: NextPage<{ data: IReportsReasons[] }> = ({
           <Td>{el.reports_count}</Td>
           <Td>
             <HStack>
+              <UpdateReportReasonModel reason={el} />
               <DeleteModal />
             </HStack>
           </Td>

@@ -7,13 +7,16 @@ import {
   RecentReportAction,
   ReportAction,
   ReportsReasonsAction,
+  ReportsReasonsOperationsActions,
 } from "../action/reports";
 import {
   GetRecentReportsTypes,
   GetReportsReasonsTypes,
   GetReportsTypes,
+  ReportsReasonsOperationsTypes,
 } from "../types/reports";
 import * as API from "../../../utils/logic/api";
+import { IReportBody } from "../../../interfaces/reports.interface";
 
 export const getReportsCreators = (params: IGetReportsRequestParams) => {
   return (dispatch: Dispatch<ReportAction | RecentReportAction>) => {
@@ -72,6 +75,81 @@ export const getReportsReasonsCreator = (
       .catch((error) => {
         dispatch({
           type: GetReportsReasonsTypes.GET_REPORTS_REASONS_ERROR,
+          loading: false,
+          error: error.response.data,
+        });
+      });
+  };
+};
+
+export const addReportReasonCreator = (body: IReportBody) => {
+  return (dispatch: Dispatch<ReportsReasonsOperationsActions>) => {
+    dispatch({
+      type: ReportsReasonsOperationsTypes.OPERATION_REPORTS_REASONS_LOADING,
+      loading: true,
+      action: "ADD",
+    });
+    API.post("ar/report/reasons/admin/add", body)
+      .then((res) => {
+        dispatch({
+          type: ReportsReasonsOperationsTypes.OPERATION_REPORTS_REASONS_SUCCESS,
+          loading: false,
+          success: true,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ReportsReasonsOperationsTypes.OPERATION_REPORTS_REASONS_ERROR,
+          loading: false,
+          error: error.response.data,
+        });
+      });
+  };
+};
+
+export const updateReportReasonCreator = (id: string, body: IReportBody) => {
+  return (dispatch: Dispatch<ReportsReasonsOperationsActions>) => {
+    dispatch({
+      type: ReportsReasonsOperationsTypes.OPERATION_REPORTS_REASONS_LOADING,
+      loading: true,
+      action: "UPDATE",
+    });
+    API.post(`ar/report/reasons/admin/update/${id}`, body)
+      .then((res) => {
+        dispatch({
+          type: ReportsReasonsOperationsTypes.OPERATION_REPORTS_REASONS_SUCCESS,
+          loading: false,
+          success: true,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ReportsReasonsOperationsTypes.OPERATION_REPORTS_REASONS_ERROR,
+          loading: false,
+          error: error.response.data,
+        });
+      });
+  };
+};
+
+export const deleteReportReasonCreator = (id: string) => {
+  return (dispatch: Dispatch<ReportsReasonsOperationsActions>) => {
+    dispatch({
+      type: ReportsReasonsOperationsTypes.OPERATION_REPORTS_REASONS_LOADING,
+      loading: true,
+      action: "DELETE",
+    });
+    API.remove(`ar/report/reasons/admin/delete/${id}`)
+      .then((res) => {
+        dispatch({
+          type: ReportsReasonsOperationsTypes.OPERATION_REPORTS_REASONS_SUCCESS,
+          loading: false,
+          success: true,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ReportsReasonsOperationsTypes.OPERATION_REPORTS_REASONS_ERROR,
           loading: false,
           error: error.response.data,
         });

@@ -18,3 +18,5 @@ export type citiesOperationTypes =
   | "ACTIVATE"
   | "DEACTIVATE"
   | "NONE";
+
+export type ReportOperationTypes = "ADD" | "UPDATE" | "DELETE" | "NONE";

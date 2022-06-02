@@ -18,6 +18,7 @@ const reducers = combineReducers({
   reports: reportsReducers.reportsReducer,
   recent_reports: reportsReducers.recentReportsReducer,
   reports_reasons: reportsReducers.reportsReasonsReducer,
+  operations_reports_reasons: reportsReducers.reportReasonsOperationsReducer,
   reservations: reservationsReducers.reservationsReducer,
   search: searchReducers.searchReducer,
   app_users_counts: appReducers.usersCountsReducer,

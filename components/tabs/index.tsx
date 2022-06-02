@@ -17,6 +17,7 @@ import { HandleSearchPageName } from "../../enum";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/reducers";
 import NoResults from "../noResults";
+import AddReportReasonModel from "../modals/reports/addReportReasonModel";
 
 const RedexTabs = () => {
   const reports = useSelector((state: RootState) => state.reports);
@@ -60,7 +61,7 @@ const RedexTabs = () => {
           )}
         </TabPanel>
         <TabPanel>
-          <Button>{"اضافة سبب"}</Button>
+          <AddReportReasonModel />
           <Spacer h={5} />
           <ReportsReasonsTable data={report_reasons.results} />
         </TabPanel>

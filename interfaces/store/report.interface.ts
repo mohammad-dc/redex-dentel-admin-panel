@@ -1,3 +1,4 @@
+import { ReportOperationTypes } from "../../types";
 import { IDoctorRow } from "./doctor.interface";
 import { IPatientRow } from "./patients.interface";
 
@@ -39,5 +40,12 @@ export interface IReportsInitialState {
 export interface IReportsReasonsInitialState {
   loading: boolean;
   results: IReportsReasons[];
+  error: Error | null;
+}
+
+export interface IReportReasonsOperationsInitialState {
+  loading: boolean;
+  success: boolean;
+  action: ReportOperationTypes;
   error: Error | null;
 }
