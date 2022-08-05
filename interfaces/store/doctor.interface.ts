@@ -10,6 +10,7 @@ export interface IDoctor {
   reports: number;
   total_reservations_count: number;
   reservations_month_count: number;
+  rate: number;
 }
 
 export interface IDoctorsInitialState {

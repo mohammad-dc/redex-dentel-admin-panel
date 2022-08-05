@@ -68,9 +68,9 @@ const Doctors = () => {
                   <Td>{el.phone}</Td>
                   <Td>{el.city}</Td>
                   <Td>{el.address}</Td>
-                  <Td>{el.total_reservations_count}</Td>
-                  <Td>{el.reservations_month_count}</Td>
-                  <Td>5</Td>
+                  <Td>{el.total_reservations_count || 0}</Td>
+                  <Td>{el.reservations_month_count || 0}</Td>
+                  <Td>{el.rate ? Math.floor(el.rate) : 0}</Td>
                   <Td>{el.reports}</Td>
                   <Td>23 يوما</Td>
                   <Td>
