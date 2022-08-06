@@ -1,4 +1,4 @@
-import { IPatients } from "../../../interfaces/store/patients.interface";
+import { IPatient } from "../../../interfaces/store/patients.interface";
 import { GetPatientsTypes } from "../types/patients";
 
 interface IGetPatientsLoadingAction {
@@ -9,7 +9,7 @@ interface IGetPatientsLoadingAction {
 interface IGetPatientsSuccessAction {
   type: GetPatientsTypes.GET_PATIENTS_SUCCESS;
   loading: boolean;
-  payload: IPatients[];
+  payload: IPatient[];
 }
 
 interface IGetPatientsErrorAction {
