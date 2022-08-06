@@ -20,7 +20,7 @@ import { bindActionCreators } from "redux";
 import { actionCitiesCreators } from "../../store";
 import { RootState } from "../../store/reducers";
 
-const cities = () => {
+const Cities = () => {
   const columns = [
     "#",
     "المدينة (العربية)",
@@ -86,4 +86,4 @@ const cities = () => {
   );
 };
 
-export default cities;
+export default Cities;
